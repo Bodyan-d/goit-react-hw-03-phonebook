@@ -7,16 +7,21 @@ import ContactList from './components/ContactList/ContactList';
 
 class App extends Component {
   state = {
-    contacts: [
-      { id: uuidv4(), name: 'Rosie Simpson', number: '459-12-56' },
-      { id: uuidv4(), name: 'Hermione Kline', number: '443-89-12' },
-      { id: uuidv4(), name: 'Eden Clements', number: '645-17-79' },
-      { id: uuidv4(), name: 'Annie Copeland', number: '227-91-26' },
-    ],
+    contacts: [],
     filter: '',
     name: '',
     number: '',
   };
+
+  componentDidMount() {
+    const contactsInStorage = JSON.parse(localStorage.getItem('contacts'));
+
+    if (contactsInStorage) {
+      return this.setState({
+        contacts: [...JSON.parse(localStorage.getItem('contacts'))],
+      });
+    }
+  }
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -36,6 +41,8 @@ class App extends Component {
       }
 
       return {
+        name: '',
+        number: '',
         contacts: [
           ...prevState.contacts,
           { id: uuidv4(), name: prevState.name, number: prevState.number },
