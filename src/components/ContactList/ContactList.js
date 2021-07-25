@@ -2,11 +2,6 @@ import { React, Component } from 'react';
 import './ContactList.css';
 
 export default class ContactList extends Component {
-  componentDidUpdate(prevProps, prevState, snapshot) {
-    if (!(prevProps.contacts.length === this.props.contacts.length)) {
-      localStorage.setItem('contacts', JSON.stringify(this.props.contacts));
-    }
-  }
   render() {
     const { contacts, deleteItem } = this.props;
 

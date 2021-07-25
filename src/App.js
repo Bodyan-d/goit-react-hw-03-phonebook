@@ -13,6 +13,12 @@ class App extends Component {
     number: '',
   };
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if (!(prevState.contacts.length === this.state.contacts.length)) {
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
+    }
+  }
+
   componentDidMount() {
     const contactsInStorage = JSON.parse(localStorage.getItem('contacts'));
 
